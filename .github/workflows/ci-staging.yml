@@ -32,13 +32,12 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/github-action-cmd.pem
+          chmod 400 ~/.ssh/github-action-cmd.pem
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "
+          ssh -i ~/.ssh/github-action-cmd.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/main:${{ github.sha }}
             docker stop main || true  
             docker rm main || true   

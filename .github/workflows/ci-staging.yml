@@ -24,7 +24,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Push Docker image to Docker Hub #推送到Docker Hub
+      - name: Push Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/main:latest
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/main:${{ github.sha }}

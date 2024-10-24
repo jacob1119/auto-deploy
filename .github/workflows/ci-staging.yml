@@ -41,5 +41,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/main:${{ github.sha }}
             docker stop main || true  
             docker rm main || true   
-            docker run -d --name main -p 3000:3000 ${{ secrets.DOCKER_HUB_USERNAME }}/main:${{ github.sha }}
+            docker run -d --name main -p 8088:8088 ${{ secrets.DOCKER_HUB_USERNAME }}/main:${{ github.sha }}
           "
